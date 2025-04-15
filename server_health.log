@@ -1,0 +1,20 @@
+2025-04-15 15:31:15,783 - INFO - Starting server health check system
+2025-04-15 15:31:16,797 - INFO - System health check completed:
+CPU Usage: 11.7%
+Memory Usage: 78.0% (6.13 GB used)
+Disk Usage: 55.3% (131.54 GB used)
+2025-04-15 15:31:16,829 - INFO - AD Check: All users normal.
+2025-04-15 15:37:01,186 - INFO - Starting server health check system
+2025-04-15 15:37:02,200 - INFO - System health check completed:
+CPU Usage: 9.8%
+Memory Usage: 78.5% (6.17 GB used)
+Disk Usage: 55.3% (131.54 GB used)
+2025-04-15 15:37:02,224 - INFO - AD Check: All users normal.
+2025-04-15 15:37:05,608 - ERROR - Failed to send email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-43f2066d109sm214264695e9.20 - gsmtp')
+2025-04-15 16:00:34,494 - INFO - Starting server health check system
+2025-04-15 16:00:35,515 - INFO - System health check completed:
+CPU Usage: 5.8%
+Memory Usage: 82.4% (6.48 GB used)
+Disk Usage: 55.3% (131.54 GB used)
+2025-04-15 16:00:35,538 - INFO - AD Check: All users normal.
+2025-04-15 16:00:40,464 - INFO - Report email sent successfully
