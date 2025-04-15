@@ -84,3 +84,10 @@ Memory Usage: 79.2% (6.22 GB used)
 Disk Usage: 56.4% (134.14 GB used)
 2025-04-15 17:51:43,062 - INFO - AD Check: All users normal.
 2025-04-15 17:51:47,968 - INFO - Report email sent successfully
+2025-04-15 18:06:29,449 - INFO - Starting server health check system
+2025-04-15 18:06:30,455 - INFO - System health check completed:
+CPU Usage: 13.4%
+Memory Usage: 81.5% (6.41 GB used)
+Disk Usage: 56.4% (134.15 GB used)
+2025-04-15 18:06:30,469 - INFO - AD Check: All users normal.
+2025-04-15 18:06:35,679 - INFO - Report email sent successfully

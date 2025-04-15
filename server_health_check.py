@@ -56,9 +56,9 @@ def generate_report():
 
 def send_report_email(report):
     """Send the report via email (simulates FTP and batch scheduling)."""
-    sender = "charlesmaponya64@gmail.com"  # Replace with your Gmail
-    receiver = "charlesmaponya64@gmail.com"  # Replace with your email or a test email
-    password = "rild fgzp qejx pdtc"  # Replace with your app-specific password
+    sender = "charlesmaponya64@gmail.com"  # Your Gmail address
+    receiver = "charlesmaponya64@gmail.com"  # Your email for testing
+    password = "rild fgzp qejx pdtc"  # Your app-specific password
     
     msg = MIMEText(report)
     msg['Subject'] = 'Daily Server Health Report'
@@ -66,9 +66,11 @@ def send_report_email(report):
     msg['To'] = receiver
     
     try:
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-            server.login(sender, password)
-            server.sendmail(sender, receiver, msg.as_string())
+        server = smtplib.SMTP('smtp.gmail.com', 587)  # Use SMTP with port 587
+        server.starttls()  # Enable TLS
+        server.login(sender, password)  # Login with app password
+        server.sendmail(sender, receiver, msg.as_string())
+        server.quit()
         logging.info("Report email sent successfully")
         return "Report sent successfully!"
     except Exception as e:
