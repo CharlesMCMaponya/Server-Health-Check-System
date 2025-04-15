@@ -1,20 +1,86 @@
-2025-04-15 15:31:15,783 - INFO - Starting server health check system
-2025-04-15 15:31:16,797 - INFO - System health check completed:
-CPU Usage: 11.7%
-Memory Usage: 78.0% (6.13 GB used)
-Disk Usage: 55.3% (131.54 GB used)
-2025-04-15 15:31:16,829 - INFO - AD Check: All users normal.
-2025-04-15 15:37:01,186 - INFO - Starting server health check system
-2025-04-15 15:37:02,200 - INFO - System health check completed:
-CPU Usage: 9.8%
-Memory Usage: 78.5% (6.17 GB used)
-Disk Usage: 55.3% (131.54 GB used)
-2025-04-15 15:37:02,224 - INFO - AD Check: All users normal.
-2025-04-15 15:37:05,608 - ERROR - Failed to send email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-43f2066d109sm214264695e9.20 - gsmtp')
-2025-04-15 16:00:34,494 - INFO - Starting server health check system
-2025-04-15 16:00:35,515 - INFO - System health check completed:
-CPU Usage: 5.8%
-Memory Usage: 82.4% (6.48 GB used)
-Disk Usage: 55.3% (131.54 GB used)
-2025-04-15 16:00:35,538 - INFO - AD Check: All users normal.
-2025-04-15 16:00:40,464 - INFO - Report email sent successfully
+import smtplib
+import psutil
+import datetime
+import os
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# Logging setup
+def log_message(message):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
+    with open("server_health.log", "a") as log_file:
+        log_file.write(f"{timestamp} - INFO - {message}\n")
+
+# System health check
+def check_system_health():
+    cpu_usage = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage('/')
+    
+    health_report = (
+        f"CPU Usage: {cpu_usage}%\n"
+        f"Memory Usage: {memory.percent}% ({memory.used / (1024 ** 3):.1f} GB used)\n"
+        f"Disk Usage: {disk.percent}% ({disk.used / (1024 ** 3):.1f} GB used)"
+    )
+    return health_report
+
+# Simulate Active Directory check
+def check_ad_users():
+    return "AD Check: All users normal."
+
+# Email sending function with error handling
+def send_email_report(health_report, ad_status):
+    sender_email = "charlesmaponya64@gmail.com"  # Replace with your Gmail address
+    receiver_email = "charlesmaponya64@gmail.com"  # Replace with the recipient's email
+    app_password = "rild fgzp qejx pdtc"  # Replace with your Gmail app-specific password
+
+    # Create the email
+    subject = f"Server Health Report - {datetime.datetime.now().strftime('%Y-%m-%d')}"
+    body = f"Server Health Report:\n\n{health_report}\n\n{ad_status}"
+    
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    # Send the email
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()  # Enable TLS
+        server.login(sender_email, app_password)  # Login with app password
+        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.quit()
+        log_message("Email report sent successfully.")
+        print("Email sent successfully!")
+    except Exception as e:
+        error_message = f"Failed to send email: {str(e)}"
+        log_message(error_message)
+        print(error_message)
+
+# Main function
+def main():
+    log_message("Starting server health check system")
+    health_report = check_system_health()
+    ad_status = check_ad_users()
+    log_message(health_report)
+    log_message(ad_status)
+    send_email_report(health_report, ad_status)
+    log_message("System health check completed.")
+
+if __name__ == "__main__":
+    main()
+2025-04-15 17:42:27,037 - INFO - Starting server health check system
+2025-04-15 17:42:28,044 - INFO - System health check completed:
+CPU Usage: 37.8%
+Memory Usage: 91.9% (7.23 GB used)
+Disk Usage: 56.0% (133.11 GB used)
+2025-04-15 17:42:28,079 - INFO - AD Check: All users normal.
+2025-04-15 17:42:34,957 - INFO - Report email sent successfully
+2025-04-15 17:51:42,020 - INFO - Starting server health check system
+2025-04-15 17:51:43,039 - INFO - System health check completed:
+CPU Usage: 14.9%
+Memory Usage: 79.2% (6.22 GB used)
+Disk Usage: 56.4% (134.14 GB used)
+2025-04-15 17:51:43,062 - INFO - AD Check: All users normal.
+2025-04-15 17:51:47,968 - INFO - Report email sent successfully
